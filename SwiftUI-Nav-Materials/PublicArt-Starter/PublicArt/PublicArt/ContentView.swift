@@ -29,10 +29,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        Text("Hello World")
+  let disciplines = ["statue", "mural", "plaque", "statue"]
+  var body: some View {
+    NavigationView {
+      List(disciplines, id: \.self) { discipline in
+        NavigationLink(
+            destination: DetailView(discipline: discipline)){
+                Text(discipline)
+            }
+        }
+      .navigationBarTitle("Disciplines")
+      }
     }
+  }
+
+struct DetailView: View {
+  let discipline: String
+    var body: some View {
+      Text(discipline)
+        .navigationBarTitle(Text(discipline), displayMode: .inline)
+    }
+
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
