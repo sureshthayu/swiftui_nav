@@ -1,15 +1,15 @@
-/// Copyright (c) 2019 Razeware LLC
-///
+/// Copyright (c) 2022 Razeware LLC
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 /// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 /// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,31 +26,40 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
+import Foundation
 import SwiftUI
 
-struct ContentView: View {
-    let artworks = artData
+struct DetailView: View {
+  let artwork: Artwork
 
-    
   var body: some View {
-    NavigationView {
-      List(artworks) { artwork in
-        NavigationLink(
-            destination: DetailView(artwork: artwork)){
-            Text(artwork.title)
-            }
-        }
-      .navigationBarTitle("Artworks")
-      }
+    VStack {
+      Image(artwork.imageName)
+        .resizable()
+        .frame(maxWidth: 300, maxHeight: 600)
+        .aspectRatio(contentMode: .fit)
+      Text("\(artwork.reaction)  \(artwork.title)")
+        .font(.headline)
+        .multilineTextAlignment(.center)
+        .lineLimit(3)
+      Text(artwork.locationName)
+        .font(.subheadline)
+      Text("Artist: \(artwork.artist)")
+        .font(.subheadline)
+      Divider()
+      Text(artwork.description)
+        .multilineTextAlignment(.leading)
+        .lineLimit(20)
     }
+    .padding()
+    .navigationBarTitle(Text(artwork.title), displayMode: .inline)
   }
-
-
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
 }
+
+
+struct DetailView_Previews: PreviewProvider {
+  static var previews: some View {
+    DetailView(artwork: artData[0])
+  }
+}
+

@@ -29,7 +29,10 @@
 import MapKit
 import SwiftUI
 
+extension Artwork: Identifiable { }
+
 struct Artwork {
+  let id = UUID()
   let artist: String
   let description: String
   let locationName: String
